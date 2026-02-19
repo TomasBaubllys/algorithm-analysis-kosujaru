@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def dfs(current_vertex, edges, visited, stack):
     visited[current_vertex] = True
     for vertex in edges[current_vertex]:
@@ -32,9 +35,15 @@ def kosajaru(vertices_count, adjacency_list):
     return strongly_connected_components
 
 
+def read_from_data_file(filename):
+    file_contents = np.load(filename)
+    return file_contents["v_count"], file_contents["edges"]
+
+
 if __name__ == "__main__":
-    vertex_count = 6
-    edges = [[1, 3], [1, 4], [2, 1], [3, 2], [4, 5]]
+    vertex_count, edges = read_from_data_file("graph.npz")
+    # vertex_count = 6
+    # edges = [[1, 3], [1, 4], [2, 1], [3, 2], [4, 5]]
     adj_list = [[] for _ in range(vertex_count)]
     for vertex1, vertex2 in edges:
         adj_list[vertex1].append(vertex2)
