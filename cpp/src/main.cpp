@@ -1,7 +1,8 @@
 #include <iostream>
+#include "../include/kosajaru.h"
 
 int main() {
-    std::cout << "Hello world!" << std::endl;
+
 
     return 0;
 }
