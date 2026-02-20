@@ -1,13 +1,22 @@
 #include "../include/kosajaru.h"
 #include <vector>
 
-void dfs(const vertex_t curr_vertex, const std::vector<std::vector<vertex_t>>& adj_list, std::vector<bool>& visited, std::vector<vertex_t>& visit_stack) {
+void dfs1(const vertex_t curr_vertex, const std::vector<std::vector<vertex_t>>& adj_list, std::vector<bool>& visited, std::vector<vertex_t>& visit_stack) {
     visited.at(curr_vertex) = true;
     for(const vertex_t& adj_v : adj_list[curr_vertex]) {
         if(!visited[adj_v])
-            dfs(adj_v, adj_list, visited, visit_stack);
+            dfs1(adj_v, adj_list, visited, visit_stack);
     }
     visit_stack.push_back(curr_vertex);
+}
+
+void dfs2(const vertex_t curr_vertex, const std::vector<std::vector<vertex_t>>& adj_list, std::vector<bool>& visited, std::vector<vertex_t>& scc_container) {
+    visited.at(curr_vertex) = true;
+    scc_container.push_back(curr_vertex);
+    for(const vertex_t& adj_v : adj_list[curr_vertex]) {
+        if(!visited[adj_v])
+            dfs2(adj_v, adj_list, visited, scc_container);
+    }
 }
 
 std::vector<std::vector<vertex_t>>kosajaru(const vertex_t vertices_count, const std::vector<std::vector<vertex_t>>& adj_list) {
@@ -15,7 +24,7 @@ std::vector<std::vector<vertex_t>>kosajaru(const vertex_t vertices_count, const 
     std::vector<vertex_t> visit_stack;
     for(vertex_t i = 0; i < vertices_count; ++i) {
         if(!visited[i]) {
-            dfs(i, adj_list, visited, visit_stack);
+            dfs1(i, adj_list, visited, visit_stack);
         }
     }
 
@@ -38,7 +47,7 @@ std::vector<std::vector<vertex_t>>kosajaru(const vertex_t vertices_count, const 
     	visit_stack.pop_back();
      	if(!visited[v]) {
       		std::vector<vertex_t> scc;
-        	dfs(v, rev_adj_list, visited, scc);
+        	dfs2(v, rev_adj_list, visited, scc);
          	sccs.push_back(std::move(scc));
       	}
     }
