@@ -1,7 +1,7 @@
-#include "kosajaru.h"
+#include "../include/kosajaru.h"
 #include <vector>
 
-void dfs(vertex_t curr_vertex, std::vector<std::vector<vertex_t>>& adj_list, std::vector<bool>& visited, std::vector<vertex_t>& visit_stack) {
+void dfs(const vertex_t curr_vertex, const std::vector<std::vector<vertex_t>>& adj_list, std::vector<bool>& visited, std::vector<vertex_t>& visit_stack) {
     visited.at(curr_vertex) = true;
     for(const vertex_t& adj_v : adj_list[curr_vertex]) {
         if(!visited[adj_v])
@@ -10,7 +10,7 @@ void dfs(vertex_t curr_vertex, std::vector<std::vector<vertex_t>>& adj_list, std
     visit_stack.push_back(curr_vertex);
 }
 
-std::vector<std::vector<vertex_t>>kosajaru(vertex_t vertices_count, std::vector<std::vector<vertex_t>>& adj_list) {
+std::vector<std::vector<vertex_t>>kosajaru(const vertex_t vertices_count, const std::vector<std::vector<vertex_t>>& adj_list) {
     std::vector<bool> visited(vertices_count, false);
     std::vector<vertex_t> visit_stack;
     for(vertex_t i = 0; i < vertices_count; ++i) {
