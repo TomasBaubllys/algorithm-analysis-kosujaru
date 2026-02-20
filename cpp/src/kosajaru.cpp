@@ -21,7 +21,7 @@ std::vector<std::vector<vertex_t>>kosajaru(const vertex_t vertices_count, const 
 
     // reverse the adj_list
     std::vector<std::vector<vertex_t>> rev_adj_list;
-    rev_adj_list.reserve(vertices_count);
+    rev_adj_list.resize(vertices_count);
 
     for(vertex_t i = 0; i < vertices_count; ++i) {
     	for(const vertex_t& v : adj_list[i]) {
